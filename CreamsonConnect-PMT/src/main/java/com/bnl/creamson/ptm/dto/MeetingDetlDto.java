@@ -1,12 +1,13 @@
 package com.bnl.creamson.ptm.dto;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
-import org.joda.time.DateTime;
-
+import com.bnl.creamson.ptm.enums.MeetingStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MeetingDetlDto implements Serializable {
 
@@ -15,35 +16,48 @@ public class MeetingDetlDto implements Serializable {
 	 */
 	private static final long serialVersionUID = 785687176137201974L;
 
+	@JsonProperty(defaultValue = "false")
+	private boolean acceptConflict;
+
+	@JsonProperty(required = true)
 	private Integer institutionId;
 
+	@JsonProperty(required = true)
 	private Integer teacherId;
 
+	@JsonProperty(required = true)
 	private Integer createdById;
 
+	@JsonProperty(required = true)
 	@JsonFormat(pattern = "DD/MM/YYYY")
 	private Date startDate;
 
+	@JsonProperty(required = true)
 	@JsonFormat(pattern = "DD/MM/YYYY")
 	private Date endDate;
 
-	@JsonFormat(pattern = "DD/MM/YYYY")
-	private String startTime;
+	@JsonProperty(required = true)
+	@JsonFormat(pattern = "24HH:MM")
+	private Time startTime;
 
-	@JsonFormat(pattern = "DD/MM/YYYY")
-	private String endTime;
+	@JsonProperty(required = true)
+	@JsonFormat(pattern = "24HH:MM")
+	private Time endTime;
+
+	private String notificationId;
 
 	private String location;
 
 	private String subject;
 
+	@JsonFormat()
 	private String description;
 
-	private String meetingStatus;
+	private MeetingStatus meetingStatus;
 
 	private String lastUpdateBy;
 
-	private DateTime lastUpdateTimestamp;
+	private Integer setByUserId;
 
 	private List<NotificationTrackingDetailsDto> notificationDetails;
 
@@ -87,19 +101,19 @@ public class MeetingDetlDto implements Serializable {
 		this.endDate = endDate;
 	}
 
-	public String getStartTime() {
+	public Time getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(String startTime) {
+	public void setStartTime(Time startTime) {
 		this.startTime = startTime;
 	}
 
-	public String getEndTime() {
+	public Time getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(String endTime) {
+	public void setEndTime(Time endTime) {
 		this.endTime = endTime;
 	}
 
@@ -127,11 +141,11 @@ public class MeetingDetlDto implements Serializable {
 		this.description = description;
 	}
 
-	public String getMeetingStatus() {
+	public MeetingStatus getMeetingStatus() {
 		return meetingStatus;
 	}
 
-	public void setMeetingStatus(String meetingStatus) {
+	public void setMeetingStatus(MeetingStatus meetingStatus) {
 		this.meetingStatus = meetingStatus;
 	}
 
@@ -143,20 +157,36 @@ public class MeetingDetlDto implements Serializable {
 		this.lastUpdateBy = lastUpdateBy;
 	}
 
-	public DateTime getLastUpdateTimestamp() {
-		return lastUpdateTimestamp;
-	}
-
-	public void setLastUpdateTimestamp(DateTime lastUpdateTimestamp) {
-		this.lastUpdateTimestamp = lastUpdateTimestamp;
-	}
-
 	public List<NotificationTrackingDetailsDto> getNotificationDetails() {
 		return notificationDetails;
 	}
 
 	public void setNotificationDetails(List<NotificationTrackingDetailsDto> notificationDetails) {
 		this.notificationDetails = notificationDetails;
+	}
+
+	public boolean isAcceptConflict() {
+		return acceptConflict;
+	}
+
+	public void setAcceptConflict(boolean acceptConflict) {
+		this.acceptConflict = acceptConflict;
+	}
+
+	public Integer getSetByUserId() {
+		return setByUserId;
+	}
+
+	public void setSetByUserId(Integer setByUserId) {
+		this.setByUserId = setByUserId;
+	}
+
+	public String getNotificationId() {
+		return notificationId;
+	}
+
+	public void setNotificationId(String notificationId) {
+		this.notificationId = notificationId;
 	}
 
 }

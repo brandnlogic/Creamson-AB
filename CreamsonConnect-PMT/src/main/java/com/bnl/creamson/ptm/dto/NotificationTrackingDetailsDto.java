@@ -2,6 +2,8 @@ package com.bnl.creamson.ptm.dto;
 
 import java.io.Serializable;
 
+import com.bnl.creamson.ptm.enums.NotificationStatus;
+import com.bnl.creamson.ptm.enums.NotificationType;
 import com.bnl.creamson.ptm.enums.RequestGroup;
 
 public class NotificationTrackingDetailsDto implements Serializable{
@@ -11,16 +13,16 @@ public class NotificationTrackingDetailsDto implements Serializable{
 	 */
 	private static final long serialVersionUID = 2789663669283866586L;
 	
-	private String notificationType;
-	private Integer notificationStatus;
+	private NotificationType notificationType;
+	private NotificationStatus notificationStatus;
 	private RequestGroup group;
 	private Integer groupId;
 
-	public Integer getNotificationStatus() {
+	public NotificationStatus getNotificationStatus() {
 		return notificationStatus;
 	}
 
-	public void setNotificationStatus(Integer notificationStatus) {
+	public void setNotificationStatus(NotificationStatus notificationStatus) {
 		this.notificationStatus = notificationStatus;
 	}
 
@@ -40,11 +42,11 @@ public class NotificationTrackingDetailsDto implements Serializable{
 		this.groupId = groupId;
 	}
 
-	public String getNotificationType() {
+	public NotificationType getNotificationType() {
 		return notificationType;
 	}
 
-	public void setNotificationType(String notificationType) {
+	public void setNotificationType(NotificationType notificationType) {
 		this.notificationType = notificationType;
 	}
 

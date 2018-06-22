@@ -4,7 +4,7 @@ import javax.persistence.AttributeConverter;
 
 import com.bnl.creamson.ptm.enums.RequestGroup;
 
-public class RequestGroupConverter implements AttributeConverter<RequestGroup, String> {
+public class RequestGroupEntityDataConverter implements AttributeConverter<RequestGroup, String> {
 
 	/**
 	 * Convert Color object to a String with format red|green|blue|alpha

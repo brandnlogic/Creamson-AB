@@ -6,15 +6,21 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.bnl.creamson.ptm.converter.RequestGroupConverter;
+import com.bnl.creamson.ptm.converter.NotificationStatusEntityDataConverter;
+import com.bnl.creamson.ptm.converter.RequestGroupEntityDataConverter;
+import com.bnl.creamson.ptm.enums.NotificationStatus;
+import com.bnl.creamson.ptm.enums.NotificationType;
 import com.bnl.creamson.ptm.enums.RequestGroup;
 
 /**
@@ -33,7 +39,7 @@ public class NotificationTrackingDtl implements Serializable {
 	private int notificationTrackingId;
 
 	@Column(name = "`GROUP`")
-	@Convert(converter = RequestGroupConverter.class)
+	@Convert(converter = RequestGroupEntityDataConverter.class)
 	private RequestGroup group;
 
 	@Column(name = "GROUP_ID")
@@ -46,14 +52,17 @@ public class NotificationTrackingDtl implements Serializable {
 	@Column(name = "LAST_UPDATE_TIMESTAMP")
 	private Date lastUpdateTimestamp;
 
-	@Column(name = "MEETING_ID")
-	private int meetingId;
-
 	@Column(name = "NOTIFICATION_STATUS")
-	private int notificationStatus;
+	@Convert(converter = NotificationStatusEntityDataConverter.class)
+	private NotificationStatus notificationStatus;
 
 	@Column(name = "NOTIFICATION_TYPE")
-	private String notificationType;
+	@Enumerated
+	private NotificationType notificationType;
+
+	@ManyToOne
+	@JoinColumn(columnDefinition = "MEETING_ID", referencedColumnName = "meetingId", nullable = false)
+	private MeetingDtl meetingDtl;
 
 	public NotificationTrackingDtl() {
 	}
@@ -98,27 +107,27 @@ public class NotificationTrackingDtl implements Serializable {
 		this.lastUpdateTimestamp = lastUpdateTimestamp;
 	}
 
-	public int getMeetingId() {
-		return this.meetingId;
+	public MeetingDtl getMeetingDtl() {
+		return meetingDtl;
 	}
 
-	public void setMeetingId(int meetingId) {
-		this.meetingId = meetingId;
+	public void setMeetingDtl(MeetingDtl meetingDtl) {
+		this.meetingDtl = meetingDtl;
 	}
 
-	public int getNotificationStatus() {
+	public NotificationStatus getNotificationStatus() {
 		return this.notificationStatus;
 	}
 
-	public void setNotificationStatus(int notificationStatus) {
+	public void setNotificationStatus(NotificationStatus notificationStatus) {
 		this.notificationStatus = notificationStatus;
 	}
 
-	public String getNotificationType() {
+	public NotificationType getNotificationType() {
 		return this.notificationType;
 	}
 
-	public void setNotificationType(String notificationType) {
+	public void setNotificationType(NotificationType notificationType) {
 		this.notificationType = notificationType;
 	}
 

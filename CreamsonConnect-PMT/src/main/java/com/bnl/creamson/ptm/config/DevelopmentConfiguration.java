@@ -11,7 +11,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 @Profile(value="Dev")
 public class DevelopmentConfiguration {
 
-	@Bean
+	@Bean(name="cremsonDB")
 	public DataSource dataSource() {
 		final DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
 		driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
@@ -21,4 +21,5 @@ public class DevelopmentConfiguration {
 		return driverManagerDataSource;
 
 	}
+	
 }

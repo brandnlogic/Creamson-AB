@@ -1,0 +1,10 @@
+http://codingtricks.fidibuy.com/participant/join/547627c5b760156b6f636a6c/Java-Validation-Framework-with-Spring-and-Drools:Part1
+http://www.javainuse.com/spring/spring-boot-drools-hello-world
+https://stackoverflow.com/questions/29650029/spring-boot-and-drools-integration
+https://github.com/jonashackt/spring-boot-starter-drools
+https://www.concretepage.com/spring-boot/spring-boot-crudrepository-example
+https://github.com/jonashackt/spring-boot-starter-drools/blob/master/src/main/java/de/codecentric/drools/configuration/DroolsAutoConfiguration.java
+https://www.3pillarglobal.com/insights/restful-api-documentation-using-swagger-and-spring-mvc?cn-reloaded=1
+https://dzone.com/articles/spring-boot-restful-api-documentation-with-swagger
+http://javasampleapproach.com/spring-framework/spring-mvc-requestmapping-with-methods-headers-params-pathvariable-and-requestparam
+http://www.appsdeveloperblog.com/spring-mvc-postmapping-getmapping-putmapping-deletemapping/
