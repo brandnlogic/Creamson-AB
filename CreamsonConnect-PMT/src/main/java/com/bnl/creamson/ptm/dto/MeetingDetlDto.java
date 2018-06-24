@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.bnl.creamson.ptm.enums.MeetingStatus;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -24,7 +26,7 @@ public class MeetingDetlDto implements Serializable {
 	private Integer teacherId;
 
 	@JsonProperty(required = true)
-	private Integer createdById;
+	private String createdBy;
 
 	@JsonProperty(required = true)
 	private LocalDateTime startDate;
@@ -40,10 +42,11 @@ public class MeetingDetlDto implements Serializable {
 
 	private String description;
 
+	@JsonProperty(defaultValue="Active")
 	private MeetingStatus meetingStatus;
 
 	@JsonProperty(value = "LastUpdatedBy")
-	private String lastUpdateId;
+	private String lastUpdate;
 
 	private Integer setByUserId;
 
@@ -65,14 +68,15 @@ public class MeetingDetlDto implements Serializable {
 		this.teacherId = teacherId;
 	}
 
-	public Integer getCreatedById() {
-		return createdById;
+	public String getCreatedBy() {
+		return createdBy;
 	}
 
-	public void setCreatedById(Integer createdById) {
-		this.createdById = createdById;
+	public void setCreatedBy(String createdById) {
+		this.createdBy = createdById;
 	}
 
+	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	public LocalDateTime getStartDate() {
 		return startDate;
 	}
@@ -81,6 +85,7 @@ public class MeetingDetlDto implements Serializable {
 		this.startDate = startDate;
 	}
 
+	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	public LocalDateTime getEndDate() {
 		return endDate;
 	}
@@ -153,12 +158,12 @@ public class MeetingDetlDto implements Serializable {
 		this.notificationId = notificationId;
 	}
 
-	public String getLastUpdateId() {
-		return lastUpdateId;
+	public String getLastUpdate() {
+		return lastUpdate;
 	}
 
-	public void setLastUpdateId(String lastUpdateId) {
-		this.lastUpdateId = lastUpdateId;
+	public void setLastUpdate(String lastUpdateId) {
+		this.lastUpdate = lastUpdateId;
 	}
 
 }

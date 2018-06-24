@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bnl.creamson.ptm.application.ApplicationMessage;
 import com.bnl.creamson.ptm.dto.MeetingDetlDto;
 import com.bnl.creamson.ptm.entity.MeetingDtl;
+import com.bnl.creamson.ptm.enums.MeetingAcceptStatus;
+import com.bnl.creamson.ptm.enums.MeetingStatus;
 import com.bnl.creamson.ptm.enums.NotificationStatus;
 import com.bnl.creamson.ptm.repository.CustomRepositoryModel;
 import com.bnl.creamson.ptm.repository.jpa.MeetingJpaRepository;
@@ -33,17 +35,21 @@ public class MeetingServiceImpl implements MeetingService {
 	
 	@Override
 	@Transactional(propagation= Propagation.REQUIRED)
-	public MeetingDetlDto saveMeetingDetails(final MeetingDetlDto meetingDetlDto, final List<ApplicationMessage> message) {
+	public MeetingDetlDto saveMeetingDetails(final MeetingDetlDto meetingDetlDto, final String userName, final List<ApplicationMessage> message) {
 
 		MeetingDetlDto newlyCreatedEntity= new MeetingDetlDto();
 		if (meetingDetlDto.isAcceptConflict()) {
 			MeetingDtl meetingEntity = ObjectMapperUtils.map(meetingDetlDto, MeetingDtl.class);
 			meetingEntity.setCreatedTimestamp(LocalDateTime.now());
 			meetingEntity.setLastUpdateTimestamp(LocalDateTime.now());
+			meetingEntity.setCreatedBy(userName);
+			meetingEntity.setMeetingStatus(MeetingStatus.Active);
+			meetingEntity.setLastUpdate(userName);
 			meetingEntity.getNotificationDetails().stream().filter(Objects::nonNull).
-							forEach(e->{e.setNotificationStatus(NotificationStatus.NotDelivered);
+							forEach(e->{e.setNotificationStatus(NotificationStatus.NotStarted);
 							e.setLastUpdateTimestamp(LocalDateTime.now());
-							e.setLastUpdateId(meetingEntity.getLastUpdateId());
+							e.setMeetingAcceptStatus(MeetingAcceptStatus.Accept);
+							e.setLastUpdate(meetingEntity.getLastUpdate());
 							e.setMeetingDtl(meetingEntity);});
 			newlyCreatedEntity = ObjectMapperUtils.map(meetingJpaRepository.save(meetingEntity), MeetingDetlDto.class);
 		} else {
@@ -55,14 +61,19 @@ public class MeetingServiceImpl implements MeetingService {
 			List<MeetingDtl> searchMeetingDetails = customRepositoryModel.searchMeetingDetails(meetingDetlDto);
 			if (searchMeetingDetails.size() > 0) {
 				message.add(ApplicationMessage.METTING_CONFLICT_WARNING_MESSAGE);
+				newlyCreatedEntity= meetingDetlDto;
 			} else{
 				MeetingDtl meetingEntity = ObjectMapperUtils.map(meetingDetlDto, MeetingDtl.class);
 				meetingEntity.setCreatedTimestamp(LocalDateTime.now());
 				meetingEntity.setLastUpdateTimestamp(LocalDateTime.now());
+				meetingEntity.setCreatedBy(userName);
+				meetingEntity.setLastUpdate(userName);
+				meetingEntity.setMeetingStatus(MeetingStatus.Active);
 				meetingEntity.getNotificationDetails().stream().filter(Objects::nonNull).
-											forEach(e->{e.setNotificationStatus(NotificationStatus.NotDelivered);
+											forEach(e->{e.setNotificationStatus(NotificationStatus.NotStarted);
 														e.setLastUpdateTimestamp(LocalDateTime.now());
-														e.setLastUpdateId(meetingEntity.getLastUpdateId());
+														e.setMeetingAcceptStatus(MeetingAcceptStatus.Accept);
+														e.setLastUpdate(meetingEntity.getLastUpdate());
 														e.setMeetingDtl(meetingEntity);});
 				newlyCreatedEntity = ObjectMapperUtils.map(meetingJpaRepository.save(meetingEntity), MeetingDetlDto.class);
 			}
@@ -72,20 +83,20 @@ public class MeetingServiceImpl implements MeetingService {
 
 	@Override
 	@Transactional(propagation= Propagation.NOT_SUPPORTED)
-	public List<MeetingDetlDto> searchMeetingDetails(final MeetingDetlDto meetingDetlDto, final List<ApplicationMessage> message) {
+	public List<MeetingDetlDto> searchMeetingDetails(final MeetingDetlDto meetingDetlDto, final String userName,final List<ApplicationMessage> message) {
 		return ObjectMapperUtils.mapAll(customRepositoryModel.searchMeetingDetails(meetingDetlDto), MeetingDetlDto.class);
 	}
 
 	@Override
 	@Transactional(propagation= Propagation.REQUIRED)
-	public void deleteMeetingDetails(final MeetingDetlDto meetingDetlDto, final List<ApplicationMessage> message) {
+	public void deleteMeetingDetails(final MeetingDetlDto meetingDetlDto, final String userName, final List<ApplicationMessage> message) {
 		MeetingDtl meetingEntity = meetingJpaRepository.findByNotificationId(meetingDetlDto.getNotificationId());
 		meetingJpaRepository.delete(meetingEntity);
 	}
 
 	@Override
 	@Transactional(propagation= Propagation.REQUIRED)
-	public MeetingDetlDto updateMeetingStatus(final MeetingDetlDto meetingDetlDto, final List<ApplicationMessage> message) {
+	public MeetingDetlDto updateMeetingStatus(final MeetingDetlDto meetingDetlDto, final String userName, final List<ApplicationMessage> message) {
 		MeetingDtl meetingEntity = meetingJpaRepository.findByNotificationId(meetingDetlDto.getNotificationId());
 		meetingEntity.setMeetingStatus(meetingDetlDto.getMeetingStatus());
 		meetingJpaRepository.save(meetingEntity);

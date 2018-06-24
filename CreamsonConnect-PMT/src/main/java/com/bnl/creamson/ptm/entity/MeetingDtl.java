@@ -66,13 +66,13 @@ public class MeetingDtl implements Serializable {
 	private MeetingStatus meetingStatus;
 
 	@Column(name = "CREATED_BY_ID")
-	private String createdById;
+	private String createdBy;
 
 	@Column(name = "CREATED_TIMESTAMP")
 	private LocalDateTime createdTimestamp;
 
 	@Column(name = "LAST_UPDATE_ID")
-	private String lastUpdateId;
+	private String lastUpdate;
 
 	@Column(name = "LAST_UPDATE_TIMESTAMP")
 	private LocalDateTime lastUpdateTimestamp;
@@ -123,12 +123,12 @@ public class MeetingDtl implements Serializable {
 		this.institutionId = institutionId;
 	}
 
-	public String getLastUpdateId() {
-		return this.lastUpdateId;
+	public String getLastUpdate() {
+		return this.lastUpdate;
 	}
 
-	public void setLastUpdateId(String lastUpdateId) {
-		this.lastUpdateId = lastUpdateId;
+	public void setLastUpdate(String lastUpdateId) {
+		this.lastUpdate = lastUpdateId;
 	}
 
 	public LocalDateTime getLastUpdateTimestamp() {
@@ -195,12 +195,12 @@ public class MeetingDtl implements Serializable {
 		this.teacherId = teacherId;
 	}
 
-	public String getCreatedById() {
-		return createdById;
+	public String getCreatedBy() {
+		return createdBy;
 	}
 
-	public void setCreatedById(String createdById) {
-		this.createdById = createdById;
+	public void setCreatedBy(String createdById) {
+		this.createdBy = createdById;
 	}
 	
 	public List<NotificationTrackingDtl> getNotificationDetails() {

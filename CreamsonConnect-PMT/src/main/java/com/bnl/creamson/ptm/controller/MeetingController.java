@@ -5,11 +5,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -44,13 +47,13 @@ public class MeetingController {
 	@ApiOperation(value="This api help to search meeting schedule.", consumes="application/json",
 					produces="application/json", response= ResponseDto.class)
 	
-	@GetMapping(value="/searchSchedule/{findBy}", consumes={"application/json"} , produces={"application/json"})
+	@PostMapping(value="/searchSchedule/{findBy}", consumes={"application/json"} , produces={"application/json"})
 	public ResponseEntity<ResponseDto<List<MeetingDetlDto>>> serachMeetingSchedule(@RequestHeader("Request-User") String userName, 
 										@RequestHeader("Request-Application") String applicationName,
 										@RequestBody MeetingDetlDto meetingDtl,
 										@PathVariable("findBy") FindByCriteria findBy){
 		List<ApplicationMessage> message = new ArrayList<ApplicationMessage>();
-		List<MeetingDetlDto> searchMeetingDetails = meetingService.searchMeetingDetails(meetingDtl, message);
+		List<MeetingDetlDto> searchMeetingDetails = meetingService.searchMeetingDetails(meetingDtl, userName, message);
 		
 		ResponseDto<List<MeetingDetlDto>> responseDto = new ResponseDto<List<MeetingDetlDto>>();
 		
@@ -68,9 +71,9 @@ public class MeetingController {
 	@PutMapping(value="createSchedule", consumes={"application/json"} , produces={"application/json"} )
 	public ResponseEntity<ResponseDto<MeetingDetlDto>> createMeetingSchedule(@RequestHeader("Request-User") String userName, 
 										@RequestHeader("Request-Application") String applicationName,
-										@RequestBody MeetingDetlDto meetingDtl){
+										@Valid @RequestBody MeetingDetlDto meetingDtl){
 		List<ApplicationMessage> message = new ArrayList<ApplicationMessage>();
-		MeetingDetlDto saveMeetingDetails = meetingService.saveMeetingDetails(meetingDtl, message);
+		MeetingDetlDto saveMeetingDetails = meetingService.saveMeetingDetails(meetingDtl, userName, message);
 		
 		ResponseDto<MeetingDetlDto> responseDto = new ResponseDto<MeetingDetlDto>();
 		

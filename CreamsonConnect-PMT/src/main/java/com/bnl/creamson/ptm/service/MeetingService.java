@@ -22,14 +22,14 @@ public interface MeetingService {
 	 * @param meetingDetlDto
 	 * @return
 	 */
-	public MeetingDetlDto saveMeetingDetails(MeetingDetlDto meetingDetlDto, List<ApplicationMessage> message); 
+	public MeetingDetlDto saveMeetingDetails(MeetingDetlDto meetingDetlDto, String userName, List<ApplicationMessage> message); 
 	
 	/**
 	 * Base on criteria in MeetingDetl it will retrieve meeting details list 
 	 * @param meetingDetlDto
 	 * @return
 	 */
-	public List<MeetingDetlDto> searchMeetingDetails(MeetingDetlDto meetingDetlDto, List<ApplicationMessage> message);
+	public List<MeetingDetlDto> searchMeetingDetails(MeetingDetlDto meetingDetlDto, String userName,  List<ApplicationMessage> message);
 	
 	/**
 	 * Rules for deleting user 
@@ -39,7 +39,7 @@ public interface MeetingService {
 	 * @param meetingDetlDto
 	 * @return
 	 */
-	public void deleteMeetingDetails(MeetingDetlDto meetingDetlDto, List<ApplicationMessage> message);
+	public void deleteMeetingDetails(MeetingDetlDto meetingDetlDto, String userName, List<ApplicationMessage> message);
 	
 	/**
 	 *  To update the status of meeting 
@@ -47,6 +47,6 @@ public interface MeetingService {
 	 * @param meetingDetlDto
 	 * @return
 	 */
-	public MeetingDetlDto updateMeetingStatus(MeetingDetlDto meetingDetlDto, List<ApplicationMessage> message);
+	public MeetingDetlDto updateMeetingStatus(MeetingDetlDto meetingDetlDto, String userName, List<ApplicationMessage> message);
 	
 }

@@ -42,10 +42,10 @@ public class CustomRepositoryModelImpl implements CustomRepositoryModel {
 
 			andClause.add(criteriaBuilder.or(orClause.toArray(new Predicate[orClause.size()])));
 			
-		if(meetingDetl.getStartDate() != null){
+		if(meetingDetl.getTeacherId() != null){
 			andClause.add(criteriaBuilder.equal(from.get("teacherId"), meetingDetl.getTeacherId()));
 		}
-		if(meetingDetl.getStartDate() != null){
+		if(meetingDetl.getInstitutionId() != null){
 			andClause.add(criteriaBuilder.equal(from.get("institutionId"), meetingDetl.getInstitutionId()));
 		}
 		

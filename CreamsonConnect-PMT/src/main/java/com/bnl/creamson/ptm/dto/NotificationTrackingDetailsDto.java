@@ -2,9 +2,13 @@ package com.bnl.creamson.ptm.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
+import com.bnl.creamson.ptm.enums.MeetingAcceptStatus;
 import com.bnl.creamson.ptm.enums.NotificationStatus;
 import com.bnl.creamson.ptm.enums.NotificationType;
 import com.bnl.creamson.ptm.enums.RequestGroup;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class NotificationTrackingDetailsDto implements Serializable {
 
@@ -13,10 +17,19 @@ public class NotificationTrackingDetailsDto implements Serializable {
 	 */
 	private static final long serialVersionUID = 2789663669283866586L;
 
+	@NotNull
 	private NotificationType notificationType;
+	
+	@JsonProperty(defaultValue="NotStarted")
 	private NotificationStatus notificationStatus;
+	
+	@NotNull
 	private RequestGroup group;
 	private Long groupId;
+	
+	
+	@JsonProperty(defaultValue="Accept")
+	private MeetingAcceptStatus meetingAcceptStatus;
 
 	public NotificationStatus getNotificationStatus() {
 		return notificationStatus;
@@ -48,6 +61,14 @@ public class NotificationTrackingDetailsDto implements Serializable {
 
 	public void setNotificationType(NotificationType notificationType) {
 		this.notificationType = notificationType;
+	}
+
+	public MeetingAcceptStatus getMeetingAcceptStatus() {
+		return meetingAcceptStatus;
+	}
+
+	public void setMeetingAcceptStatus(MeetingAcceptStatus meetingAcceptStatus) {
+		this.meetingAcceptStatus = meetingAcceptStatus;
 	}
 
 }

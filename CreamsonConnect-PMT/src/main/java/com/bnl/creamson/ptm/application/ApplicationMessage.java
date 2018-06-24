@@ -10,7 +10,8 @@ package com.bnl.creamson.ptm.application;
 public enum ApplicationMessage {
 
 	METTING_CONFLICT_WARNING_MESSAGE(3001, "Warning", "There a conflict in meeting schedule."),
-	METTING_CREATTION_MESSAGE(3002,"Confirmation", "Meeting has beed scheduled.");
+	METTING_CREATTION_MESSAGE(3002,"Confirmation", "Meeting has beed scheduled."),
+	INSTITUTION_ID(3003,"Error", "Institution ID cannot be null");
 
 	private Integer messageCode;
 	private String message;

@@ -14,9 +14,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.bnl.creamson.ptm.converter.MeetingAcceptEntityDataConverter;
 import com.bnl.creamson.ptm.converter.NotificationStatusEntityDataConverter;
 import com.bnl.creamson.ptm.converter.NotificationTypeEntityDataConverter;
 import com.bnl.creamson.ptm.converter.RequestGroupEntityDataConverter;
+import com.bnl.creamson.ptm.enums.MeetingAcceptStatus;
 import com.bnl.creamson.ptm.enums.NotificationStatus;
 import com.bnl.creamson.ptm.enums.NotificationType;
 import com.bnl.creamson.ptm.enums.RequestGroup;
@@ -44,7 +46,11 @@ public class NotificationTrackingDtl implements Serializable {
 	private Long groupId;
 
 	@Column(name = "LAST_UPDATE_ID")
-	private String lastUpdateId;
+	private String lastUpdate;
+
+	@Column(name = "MEETING_ACCEPT_STATUS")
+	@Convert(converter = MeetingAcceptEntityDataConverter.class)
+	private MeetingAcceptStatus meetingAcceptStatus;
 
 	@Column(name = "LAST_UPDATE_TIMESTAMP")
 	private LocalDateTime lastUpdateTimestamp;
@@ -58,7 +64,7 @@ public class NotificationTrackingDtl implements Serializable {
 	private NotificationType notificationType;
 
 	@ManyToOne
-	@JoinColumn(name="MEETING_ID", referencedColumnName = "MEETING_ID", nullable = false)
+	@JoinColumn(name = "MEETING_ID", referencedColumnName = "MEETING_ID", nullable = false)
 	private MeetingDtl meetingDtl;
 
 	public NotificationTrackingDtl() {
@@ -88,12 +94,12 @@ public class NotificationTrackingDtl implements Serializable {
 		this.groupId = groupId;
 	}
 
-	public String getLastUpdateId() {
-		return this.lastUpdateId;
+	public String getLastUpdate() {
+		return this.lastUpdate;
 	}
 
-	public void setLastUpdateId(String lastUpdateId) {
-		this.lastUpdateId = lastUpdateId;
+	public void setLastUpdate(String lastUpdateId) {
+		this.lastUpdate = lastUpdateId;
 	}
 
 	public LocalDateTime getLastUpdateTimestamp() {
@@ -126,6 +132,14 @@ public class NotificationTrackingDtl implements Serializable {
 
 	public void setNotificationType(NotificationType notificationType) {
 		this.notificationType = notificationType;
+	}
+
+	public MeetingAcceptStatus getMeetingAcceptStatus() {
+		return meetingAcceptStatus;
+	}
+
+	public void setMeetingAcceptStatus(MeetingAcceptStatus meetingAcceptStatus) {
+		this.meetingAcceptStatus = meetingAcceptStatus;
 	}
 
 }
