@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
-@Profile(value="Dev")
 public class DevelopmentConfiguration {
 
 	@Bean(name="cremsonDB")

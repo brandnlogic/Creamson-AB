@@ -1,12 +1,10 @@
 package com.bnl.creamson.ptm.dto;
 
 import java.io.Serializable;
-import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.bnl.creamson.ptm.enums.MeetingStatus;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MeetingDetlDto implements Serializable {
@@ -29,20 +27,10 @@ public class MeetingDetlDto implements Serializable {
 	private Integer createdById;
 
 	@JsonProperty(required = true)
-	@JsonFormat(pattern = "DD/MM/YYYY")
-	private Date startDate;
+	private LocalDateTime startDate;
 
 	@JsonProperty(required = true)
-	@JsonFormat(pattern = "DD/MM/YYYY")
-	private Date endDate;
-
-	@JsonProperty(required = true)
-	@JsonFormat(pattern = "24HH:MM")
-	private Time startTime;
-
-	@JsonProperty(required = true)
-	@JsonFormat(pattern = "24HH:MM")
-	private Time endTime;
+	private LocalDateTime endDate;
 
 	private String notificationId;
 
@@ -50,12 +38,12 @@ public class MeetingDetlDto implements Serializable {
 
 	private String subject;
 
-	@JsonFormat()
 	private String description;
 
 	private MeetingStatus meetingStatus;
 
-	private String lastUpdateBy;
+	@JsonProperty(value = "LastUpdatedBy")
+	private String lastUpdateId;
 
 	private Integer setByUserId;
 
@@ -85,36 +73,20 @@ public class MeetingDetlDto implements Serializable {
 		this.createdById = createdById;
 	}
 
-	public Date getStartDate() {
+	public LocalDateTime getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDateTime startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public LocalDateTime getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(LocalDateTime endDate) {
 		this.endDate = endDate;
-	}
-
-	public Time getStartTime() {
-		return startTime;
-	}
-
-	public void setStartTime(Time startTime) {
-		this.startTime = startTime;
-	}
-
-	public Time getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(Time endTime) {
-		this.endTime = endTime;
 	}
 
 	public String getLocation() {
@@ -149,14 +121,6 @@ public class MeetingDetlDto implements Serializable {
 		this.meetingStatus = meetingStatus;
 	}
 
-	public String getLastUpdateBy() {
-		return lastUpdateBy;
-	}
-
-	public void setLastUpdateBy(String lastUpdateBy) {
-		this.lastUpdateBy = lastUpdateBy;
-	}
-
 	public List<NotificationTrackingDetailsDto> getNotificationDetails() {
 		return notificationDetails;
 	}
@@ -187,6 +151,14 @@ public class MeetingDetlDto implements Serializable {
 
 	public void setNotificationId(String notificationId) {
 		this.notificationId = notificationId;
+	}
+
+	public String getLastUpdateId() {
+		return lastUpdateId;
+	}
+
+	public void setLastUpdateId(String lastUpdateId) {
+		this.lastUpdateId = lastUpdateId;
 	}
 
 }

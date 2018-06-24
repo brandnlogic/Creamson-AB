@@ -34,7 +34,7 @@ import io.swagger.annotations.ApiOperation;
  */
 
 @RestController
-@RequestMapping(name="/meetingschedule")
+@RequestMapping(value="/meetingschedule")
 @Api(value="Schedule Meeting",tags={"You can schedule meeting with parents, teacher and institute"})
 public class MeetingController {
 	
@@ -42,9 +42,9 @@ public class MeetingController {
 	private MeetingService meetingService;
 	
 	@ApiOperation(value="This api help to search meeting schedule.", consumes="application/json",
-					produces="application/json", httpMethod="Get", response= ResponseDto.class)
+					produces="application/json", response= ResponseDto.class)
 	
-	@GetMapping(name="/searchSchedule/{findBy}", consumes={"application/json"} , produces={"application/json"})
+	@GetMapping(value="/searchSchedule/{findBy}", consumes={"application/json"} , produces={"application/json"})
 	public ResponseEntity<ResponseDto<List<MeetingDetlDto>>> serachMeetingSchedule(@RequestHeader("Request-User") String userName, 
 										@RequestHeader("Request-Application") String applicationName,
 										@RequestBody MeetingDetlDto meetingDtl,
@@ -64,8 +64,8 @@ public class MeetingController {
 	}
 	
 	@ApiOperation(value="This api help to create meeting schedule.", consumes="application/json",
-			produces="application/json", httpMethod="Put", response=ResponseDto.class)
-	@PutMapping(name="createSchedule", consumes={"application/json"} , produces={"application/json"} )
+			produces="application/json", response=ResponseDto.class)
+	@PutMapping(value="createSchedule", consumes={"application/json"} , produces={"application/json"} )
 	public ResponseEntity<ResponseDto<MeetingDetlDto>> createMeetingSchedule(@RequestHeader("Request-User") String userName, 
 										@RequestHeader("Request-Application") String applicationName,
 										@RequestBody MeetingDetlDto meetingDtl){
@@ -83,6 +83,9 @@ public class MeetingController {
 		return new ResponseEntity<ResponseDto<MeetingDetlDto>>(responseDto, HttpStatus.OK);
 	}
 	
-	
+	@GetMapping(value="getResult", produces={"application/json"} )
+	public String getRestul(){
+		return "Hello";
+	}
 
 }

@@ -12,10 +12,10 @@ import org.kie.api.builder.KieBuilder;
 import org.kie.api.builder.KieFileSystem;
 import org.kie.api.builder.KieModule;
 import org.kie.api.builder.KieRepository;
+import org.kie.api.builder.ReleaseId;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.internal.io.ResourceFactory;
-import org.kie.api.builder.ReleaseId; 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -33,21 +33,19 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.bnl.creamson.ptm"})
-@EnableJpaRepositories(basePackages={"com.bnl.creamson.ptm.repository"},
+@EnableJpaRepositories(basePackages={"com.bnl.creamson.ptm.repository.jpa"},
 							entityManagerFactoryRef = "cremsonEntityManager",
 							transactionManagerRef = "cremsonTransactionmanager",
-							repositoryImplementationPostfix = "ModelImpl"
+							repositoryImplementationPostfix= "ModelImpl"
 )
 @EntityScan("com.bnl.creamson.ptm.entity")
 @EnableTransactionManagement
-@EnableSwagger2
 public class MvcConfiguration implements WebMvcConfigurer{
 
 	private static final String RULES_PATH = "rules/";
@@ -56,6 +54,12 @@ public class MvcConfiguration implements WebMvcConfigurer{
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
 	}
+	
+	@Override
+    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
 	
 	@Bean
 	public ModelMapper modelMapper() {
@@ -73,11 +77,11 @@ public class MvcConfiguration implements WebMvcConfigurer{
 		additionalProperties.put("hibernate.dialect", "org.hibernate.dialect.DerbyDialect");
 		additionalProperties.put("hibernate.show_sql", "true");
 		additionalProperties.put("hibernate.hbm2ddl.auto", "none");
-		additionalProperties.put("hibernate.default_schema", "payroll");
+		//additionalProperties.put("hibernate.default_schema", "cm");
 		additionalProperties.put("hibernate.id.new_generator_mappings", "false");
 		entityManagerFactory.setJpaProperties(additionalProperties);
 		entityManagerFactory.setDataSource(dataSource);
-		entityManagerFactory.setPackagesToScan("com.springdata.db.model");
+		entityManagerFactory.setPackagesToScan("com.bnl.creamson.ptm.entity");
 		entityManagerFactory.setPersistenceUnitName("derby");
 		entityManagerFactory.setJpaVendorAdapter(vendorAdapter);
 		entityManagerFactory.setJpaProperties(additionalProperties);

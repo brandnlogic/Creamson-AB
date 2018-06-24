@@ -4,13 +4,13 @@ import javax.persistence.AttributeConverter;
 
 import com.bnl.creamson.ptm.enums.RequestGroup;
 
-public class RequestGroupEntityDataConverter implements AttributeConverter<RequestGroup, String> {
+public class RequestGroupEntityDataConverter implements AttributeConverter<RequestGroup, Character> {
 
 	/**
 	 * Convert Color object to a String with format red|green|blue|alpha
 	 */
 	@Override
-	public String convertToDatabaseColumn(RequestGroup group) {
+	public Character convertToDatabaseColumn(RequestGroup group) {
 		return group.getDbValue();
 	}
 
@@ -18,9 +18,9 @@ public class RequestGroupEntityDataConverter implements AttributeConverter<Reque
 	 * Convert a String with format red|green|blue|alpha to a Color object
 	 */
 	@Override
-	public RequestGroup convertToEntityAttribute(String groupDB) {
+	public RequestGroup convertToEntityAttribute(Character groupDB) {
 		for (RequestGroup group:RequestGroup.values()){
-			if(group.getDbValue().equals(groupDB))
+			if(group.getDbValue() == groupDB)
 				return group;
 		}
 		throw new RuntimeException("Group record not found");

@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jndi.JndiObjectFactoryBean;
 
-@Configuration
-@Profile("Prod")
+//@Configuration
+//@Profile("Prod")
 public class ProductionConfiguration {
 
 	@Bean(name="cremsonDB")

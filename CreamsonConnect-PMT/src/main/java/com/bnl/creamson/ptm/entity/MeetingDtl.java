@@ -1,23 +1,20 @@
 package com.bnl.creamson.ptm.entity;
 
 import java.io.Serializable;
-import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.bnl.creamson.ptm.converter.MeetingStatusEntityDataConverter;
 import com.bnl.creamson.ptm.enums.MeetingStatus;
@@ -37,42 +34,11 @@ public class MeetingDtl implements Serializable {
 	@Column(name = "MEETING_ID")
 	private Long meetingId;
 
-	@Column(name = "DESCRIPTION")
-	private String description;
-
-	@Column(name = "DURATION")
-	private Time duration;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "END_DATE")
-	private Date endDate;
-
-	@Column(name = "END_TIME")
-	private Time endTime;
+	@Column(name = "TEACHER_ID")
+	private int teacherId;
 
 	@Column(name = "INSTITUTION_ID")
 	private int institutionId;
-
-	@Column(name = "LAST_UPDATE_ID")
-	private String lastUpdateId;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "LAST_UPDATE_TIMESTAMP")
-	private Date lastUpdateTimestamp;
-
-	@Column(name = "CREATED_BY_ID")
-	private String createdById;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "CREATED_TIMESTAMP")
-	private Date createdTimestamp;
-
-	@Column(name = "LOCATION")
-	private String location;
-
-	@Column(name = "MEETING_STATUS")
-	@Convert(converter = MeetingStatusEntityDataConverter.class)
-	private MeetingStatus meetingStatus;
 
 	@Column(name = "NOTIFICATION_ID")
 	private String notificationId;
@@ -80,20 +46,38 @@ public class MeetingDtl implements Serializable {
 	@Column(name = "SET_BY_USER_ID")
 	private int setByUserId;
 
-	@Temporal(TemporalType.DATE)
 	@Column(name = "START_DATE")
-	private Date startDate;
+	private LocalDateTime startDate;
 
-	@Column(name = "START_TIME")
-	private Time startTime;
+	@Column(name = "END_DATE")
+	private LocalDateTime endDate;
+
+	@Column(name = "LOCATION")
+	private String location;
 
 	@Column(name = "SUBJECT")
 	private String subject;
 
-	@Column(name = "TEACHER_ID")
-	private int teacherId;
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="")
+	@Column(name = "DESCRIPTION")
+	private String description;
+
+	@Column(name = "MEETING_STATUS")
+	@Convert(converter = MeetingStatusEntityDataConverter.class)
+	private MeetingStatus meetingStatus;
+
+	@Column(name = "CREATED_BY_ID")
+	private String createdById;
+
+	@Column(name = "CREATED_TIMESTAMP")
+	private LocalDateTime createdTimestamp;
+
+	@Column(name = "LAST_UPDATE_ID")
+	private String lastUpdateId;
+
+	@Column(name = "LAST_UPDATE_TIMESTAMP")
+	private LocalDateTime lastUpdateTimestamp;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "meetingDtl")
 	private List<NotificationTrackingDtl> notificationDetails;
 
 	public MeetingDtl() {
@@ -115,36 +99,20 @@ public class MeetingDtl implements Serializable {
 		this.description = description;
 	}
 
-	public Date getCreatedTimestamp() {
+	public LocalDateTime getCreatedTimestamp() {
 		return createdTimestamp;
 	}
 
-	public void setCreatedTimestamp(Date createdTimestamp) {
+	public void setCreatedTimestamp(LocalDateTime createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
 	}
 
-	public Time getDuration() {
-		return this.duration;
-	}
-
-	public void setDuration(Time duration) {
-		this.duration = duration;
-	}
-
-	public Date getEndDate() {
+	public LocalDateTime getEndDate() {
 		return this.endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(LocalDateTime endDate) {
 		this.endDate = endDate;
-	}
-
-	public Time getEndTime() {
-		return this.endTime;
-	}
-
-	public void setEndTime(Time endTime) {
-		this.endTime = endTime;
 	}
 
 	public int getInstitutionId() {
@@ -163,11 +131,11 @@ public class MeetingDtl implements Serializable {
 		this.lastUpdateId = lastUpdateId;
 	}
 
-	public Date getLastUpdateTimestamp() {
+	public LocalDateTime getLastUpdateTimestamp() {
 		return this.lastUpdateTimestamp;
 	}
 
-	public void setLastUpdateTimestamp(Date lastUpdateTimestamp) {
+	public void setLastUpdateTimestamp(LocalDateTime lastUpdateTimestamp) {
 		this.lastUpdateTimestamp = lastUpdateTimestamp;
 	}
 
@@ -203,20 +171,12 @@ public class MeetingDtl implements Serializable {
 		this.setByUserId = setByUserId;
 	}
 
-	public Date getStartDate() {
+	public LocalDateTime getStartDate() {
 		return this.startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDateTime startDate) {
 		this.startDate = startDate;
-	}
-
-	public Time getStartTime() {
-		return this.startTime;
-	}
-
-	public void setStartTime(Time startTime) {
-		this.startTime = startTime;
 	}
 
 	public String getSubject() {
@@ -241,6 +201,21 @@ public class MeetingDtl implements Serializable {
 
 	public void setCreatedById(String createdById) {
 		this.createdById = createdById;
+	}
+	
+	public List<NotificationTrackingDtl> getNotificationDetails() {
+		return notificationDetails;
+	}
+	
+	public void setNotificationDetails(List<NotificationTrackingDtl> notificationDetails) {
+		this.notificationDetails = notificationDetails;
+	}
+	
+	public void addNotificationDetails(NotificationTrackingDtl notificationDetail){
+		if(this.notificationDetails == null){
+			this.notificationDetails = new ArrayList<NotificationTrackingDtl>();
+		}
+		this.notificationDetails.add(notificationDetail);
 	}
 
 }

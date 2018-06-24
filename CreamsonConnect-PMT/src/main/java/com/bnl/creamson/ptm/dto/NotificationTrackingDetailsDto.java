@@ -6,17 +6,17 @@ import com.bnl.creamson.ptm.enums.NotificationStatus;
 import com.bnl.creamson.ptm.enums.NotificationType;
 import com.bnl.creamson.ptm.enums.RequestGroup;
 
-public class NotificationTrackingDetailsDto implements Serializable{
+public class NotificationTrackingDetailsDto implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2789663669283866586L;
-	
+
 	private NotificationType notificationType;
 	private NotificationStatus notificationStatus;
 	private RequestGroup group;
-	private Integer groupId;
+	private Long groupId;
 
 	public NotificationStatus getNotificationStatus() {
 		return notificationStatus;
@@ -34,11 +34,11 @@ public class NotificationTrackingDetailsDto implements Serializable{
 		this.group = group;
 	}
 
-	public Integer getGroupId() {
+	public Long getGroupId() {
 		return groupId;
 	}
 
-	public void setGroupId(Integer groupId) {
+	public void setGroupId(Long groupId) {
 		this.groupId = groupId;
 	}
 

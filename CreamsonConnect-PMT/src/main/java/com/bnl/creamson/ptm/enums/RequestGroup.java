@@ -2,17 +2,17 @@ package com.bnl.creamson.ptm.enums;
 
 public enum RequestGroup {
 
-	Individual("I"),
-	All("A");
+	Individual('I'),
+	All('A');
 
-	private String dbValue; 
+	private char dbValue; 
 	
-	private RequestGroup(String dbValue) {
+	private RequestGroup(char dbValue) {
 		this.dbValue = dbValue;
 	}
 	
-	public String getDbValue() {
-		return dbValue;
+	public char getDbValue() {
+		return this.dbValue;
 	}
 	
 	

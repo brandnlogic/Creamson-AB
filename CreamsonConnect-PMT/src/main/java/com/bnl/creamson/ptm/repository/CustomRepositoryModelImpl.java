@@ -29,33 +29,30 @@ public class CustomRepositoryModelImpl implements CustomRepositoryModel {
 		final CriteriaQuery<MeetingDtl> createQuery = criteriaBuilder.createQuery(MeetingDtl.class);
 		final Root<MeetingDtl> from = createQuery.from(MeetingDtl.class);
 		
-		List<Predicate> whereClause = new ArrayList<Predicate>();
+		List<Predicate> andClause = new ArrayList<Predicate>();
+		List<Predicate> orClause = new ArrayList<Predicate>();
 		
-		if(meetingDetl.getStartDate() != null){
-			whereClause.add(criteriaBuilder.greaterThanOrEqualTo(from.get("startDate"), meetingDetl.getStartDate()));
-		}
 		
+			orClause.add(criteriaBuilder.and(criteriaBuilder.lessThan(from.get("startDate"), meetingDetl.getStartDate()),
+											 criteriaBuilder.greaterThan(from.get("endDate"), meetingDetl.getEndDate())));
+			
+			orClause.add(criteriaBuilder.between(from.get("startDate"), meetingDetl.getStartDate(), meetingDetl.getEndDate()));
+			orClause.add(criteriaBuilder.between(from.get("endDate"), meetingDetl.getStartDate(), meetingDetl.getEndDate()));
+			
+
+			andClause.add(criteriaBuilder.or(orClause.toArray(new Predicate[orClause.size()])));
+			
 		if(meetingDetl.getStartDate() != null){
-			whereClause.add(criteriaBuilder.lessThanOrEqualTo(from.get("endDate"), meetingDetl.getEndDate()));
-		}
-		
-		if(meetingDetl.getStartDate() != null){
-			whereClause.add(criteriaBuilder.greaterThanOrEqualTo(from.get("startTime"), meetingDetl.getStartTime()));
-		}
-		if(meetingDetl.getStartDate() != null){
-			whereClause.add(criteriaBuilder.lessThanOrEqualTo(from.get("endTime"), meetingDetl.getEndTime()));
-		}
-		
-		if(meetingDetl.getStartDate() != null){
-			whereClause.add(criteriaBuilder.equal(from.get("teacherId"), meetingDetl.getTeacherId()));
+			andClause.add(criteriaBuilder.equal(from.get("teacherId"), meetingDetl.getTeacherId()));
 		}
 		if(meetingDetl.getStartDate() != null){
-			whereClause.add(criteriaBuilder.equal(from.get("institutionId"), meetingDetl.getInstitutionId()));
+			andClause.add(criteriaBuilder.equal(from.get("institutionId"), meetingDetl.getInstitutionId()));
 		}
 		
-		whereClause.add(criteriaBuilder.equal(from.get("meetingStatus"), MeetingStatus.Active));
+		andClause.add(criteriaBuilder.equal(from.get("meetingStatus"), MeetingStatus.Active));
 		
-		return entitymanager.createQuery(createQuery.where(whereClause.toArray(new Predicate[whereClause.size()]))).getResultList();
+		
+		return entitymanager.createQuery(createQuery.where(andClause.toArray(new Predicate[andClause.size()]))).getResultList();
 	}
 
 }
