@@ -6,7 +6,7 @@
 	<groupId>com.bnl</groupId>
 	<artifactId>CreamsonConnect-PMT</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>CreamsonConnect-Parent Teacher meeting</name>
 	<description>Create a meeting schedule between teacher and parents</description>

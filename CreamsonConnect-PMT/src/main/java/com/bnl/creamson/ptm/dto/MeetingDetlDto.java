@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.bnl.creamson.ptm.enums.MeetingStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MeetingDetlDto implements Serializable {
@@ -29,9 +31,11 @@ public class MeetingDetlDto implements Serializable {
 	private String createdBy;
 
 	@JsonProperty(required = true)
+	@JsonFormat(shape = Shape.STRING)
 	private LocalDateTime startDate;
 
 	@JsonProperty(required = true)
+	@JsonFormat(shape = Shape.STRING)
 	private LocalDateTime endDate;
 
 	private String notificationId;

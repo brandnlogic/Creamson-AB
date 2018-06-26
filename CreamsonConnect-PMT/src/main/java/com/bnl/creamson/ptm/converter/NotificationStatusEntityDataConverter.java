@@ -14,7 +14,7 @@ public class NotificationStatusEntityDataConverter implements AttributeConverter
 	@Override
 	public NotificationStatus convertToEntityAttribute(Integer arg0) {
 		for (NotificationStatus group:NotificationStatus.values()){
-			if(group.getStatusCode() == arg0)
+			if(group.getStatusCode().equals(arg0))
 				return group;
 		}
 		return NotificationStatus.Failed;
