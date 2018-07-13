@@ -11,7 +11,7 @@ import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
-//@Configurable
+@Configurable
 public class SwaggerConfig {
 	
 	/**
