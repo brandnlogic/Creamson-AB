@@ -1,30 +1,16 @@
 package com.bnl.creamson.ptm.config;
 
-import java.io.IOException;
 import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-import org.kie.api.KieBase;
-import org.kie.api.KieServices;
-import org.kie.api.builder.KieBuilder;
-import org.kie.api.builder.KieFileSystem;
-import org.kie.api.builder.KieModule;
-import org.kie.api.builder.KieRepository;
-import org.kie.api.builder.ReleaseId;
-import org.kie.api.runtime.KieContainer;
-import org.kie.api.runtime.KieSession;
-import org.kie.internal.io.ResourceFactory;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -96,7 +82,7 @@ public class MvcConfiguration implements WebMvcConfigurer{
 		return new JpaTransactionManager(derbyEntityManager);
 
 	}
-	@Bean
+	/*@Bean
 	public KieFileSystem kieFileSystem() throws IOException {
 	    KieFileSystem kieFileSystem = getKieServices().newKieFileSystem();
 	    for (Resource file : getRuleFiles()) {
@@ -107,7 +93,7 @@ public class MvcConfiguration implements WebMvcConfigurer{
 
 	private Resource[] getRuleFiles() throws IOException {
 	    ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
-	    return resourcePatternResolver.getResources("classpath*:" + RULES_PATH + "**/*.*");
+	    return resourcePatternResolver.getResources("classpath*:" + RULES_PATH + "");
 	}
 
 	@Bean
@@ -138,6 +124,11 @@ public class MvcConfiguration implements WebMvcConfigurer{
 	@Bean
 	public KieSession kieSession() throws IOException {
 	    return kieContainer().newKieSession();
-	}
+	}*/
 	
+	 /*@Bean
+	    public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
+	        http.authorizeExchange().anyExchange().permitAll();
+	        return http.build();
+	    }*/
 }

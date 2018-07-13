@@ -1,13 +1,15 @@
 package com.bnl.creamson.ptm;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
 @SpringBootApplication
-@EnableSwagger2
+//@EnableSwagger2
+@EnableAutoConfiguration(exclude = {
+	    SecurityAutoConfiguration.class})
 public class PTMApplicationConfig extends SpringBootServletInitializer
 {
 		private static Class<PTMApplicationConfig> applicationClass = PTMApplicationConfig.class;

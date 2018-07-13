@@ -2,7 +2,7 @@ package com.bnl.creamson.ptm.enums;
 
 public enum NotificationType {
 
-	MAIL('M'),
+	Mail('M'),
 	Mobile('A');
 	
 	private Character dbValue;
