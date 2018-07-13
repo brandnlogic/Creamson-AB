@@ -47,7 +47,7 @@ public class MeetingController {
 	@ApiOperation(value="This api help to search meeting schedule.", consumes="application/json",
 					produces="application/json", response= ResponseDto.class)
 	
-	@PostMapping(path="/searchSchedule/{findBy}", consumes={"application/json"} , produces={"application/json"})
+	@PostMapping(value="/searchSchedule/{findBy}", consumes={"application/json"} , produces={"application/json"})
 	public ResponseEntity<ResponseDto<List<MeetingDetlDto>>> serachMeetingSchedule(@RequestHeader("Request-User") String userName, 
 										@RequestHeader("Request-Application") String applicationName,
 										@RequestBody MeetingDetlDto meetingDtl,
@@ -68,7 +68,7 @@ public class MeetingController {
 	
 	@ApiOperation(value="This api help to create meeting schedule.", consumes="application/json",
 			produces="application/json", response=ResponseDto.class)
-	@PutMapping(path="/createSchedule", consumes={"application/json"} , produces={"application/json"} )
+	@PutMapping(value="/createSchedule", consumes={"application/json"} , produces={"application/json"} )
 	public ResponseEntity<ResponseDto<MeetingDetlDto>> createMeetingSchedule(@RequestHeader("Request-User") String userName, 
 										@RequestHeader("Request-Application") String applicationName,
 										@Valid @RequestBody MeetingDetlDto meetingDtl){
@@ -84,11 +84,6 @@ public class MeetingController {
 		responseDto.setPayload(saveMeetingDetails);
 		
 		return new ResponseEntity<ResponseDto<MeetingDetlDto>>(responseDto, HttpStatus.OK);
-	}
-	
-	@GetMapping(value="/search")
-	public String getService(){
-		return "hello";
 	}
 	
 }
