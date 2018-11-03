@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -77,7 +78,7 @@ public class MeetingDtl implements Serializable {
 	@Column(name = "LAST_UPDATE_TIMESTAMP")
 	private LocalDateTime lastUpdateTimestamp;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "meetingDtl")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "meetingDtl", fetch=FetchType.EAGER)
 	private List<NotificationTrackingDtl> notificationDetails;
 
 	public MeetingDtl() {
